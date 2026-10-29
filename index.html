@@ -29,6 +29,68 @@
 @media(max-width:480px){.topbar{padding:16px 18px}.top-note{display:none}.hero{padding:20px 18px}.hero h1{font-size:calc(41px * var(--site-heading-scale))}.hero p{font-size:14px}.hero-art{min-height:180px}.food-emoji{font-size:90px}.main{padding:0 14px 35px}.panel{padding:18px}.recipe-card{grid-template-columns:90px 1fr;gap:12px;padding:11px}.recipe-visual{min-height:120px;font-size:43px}.recipe-info h3{font-size:19px}.recipe-info p{font-size:11px}.results-head h2{font-size:27px}}
 </style>
 </head>
+ 
+<script>
+(function () {
+  const button = document.getElementById('generate-ideas');
+  if (!button) return;
+
+  button.onclick = async function () {
+    const out = document.getElementById('ai-results');
+    button.disabled = true;
+    button.textContent = 'Pensando…';
+    out.textContent = 'Conectando con la IA…';
+
+    const payload = {
+      ingredients: [...document.querySelectorAll('.ingredient.selected')]
+        .map(b => b.textContent.replace(/^✓\s*/, '')),
+      timeMinutes: Number(
+        document.querySelector('.time-btn.active')?.dataset.time || 20
+      ),
+      method: document.querySelector('.method-btn.active')?.dataset.method || 'sartén',
+      preferences: document.getElementById('ai-prompt').value.trim(),
+      budget: document.getElementById('budget-mode').checked
+    };
+
+    try {
+      const response = await fetch('/api/ideas', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Error del servidor: ' + response.status);
+      }
+
+      if (!data.text) {
+        throw new Error('El servidor no ha devuelto recetas.');
+      }
+
+      const result = document.createElement('div');
+      result.className = 'ai-result';
+
+      const title = document.createElement('h3');
+      title.textContent = 'Ideas de Entre Fogones';
+
+      const text = document.createElement('p');
+      text.style.whiteSpace = 'pre-wrap';
+      text.textContent = data.text;
+
+      result.append(title, text);
+      out.replaceChildren(result);
+    } catch (error) {
+      out.textContent = 'Error al generar las recetas: ' + error.message;
+    } finally {
+      button.disabled = false;
+      button.textContent = 'Crear ideas ↗';
+    }
+  };
+})();
+</script>
+
 <body><div id="app">
 <header class="topbar"><div class="brand"><div class="brand-icon">✳</div><span>entre <em>fogones</em></span></div><div class="top-note">100% gratis · Menos pensar. Más disfrutar. 🍋</div></header>
 <section class="hero"><div><div class="eyebrow">Tu cocina, tus reglas</div><h1>¿Qué hay en tu nevera? <span>Vamos a cocinar.</span></h1><p>Cuéntanos qué tienes por casa, cuánto tiempo te queda y cómo quieres cocinar. Nosotros ponemos las ideas; tú pones el hambre. Siempre gratis, sin suscripciones.</p><div class="hero-pills"><span>✦ Recetas fáciles</span><span>€ Económicas</span><span>↗ A tu manera</span><span>✓ 100% gratis</span></div></div><div class="hero-art"><div class="floating float-one"><b>✦ Fácil y rico</b>Sin complicaciones</div><div class="food-emoji">🥗</div><div class="floating float-two"><b>⏱ A tu ritmo</b>Desde 10 minutos</div></div></section>
