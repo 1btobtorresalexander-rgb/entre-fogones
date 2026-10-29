@@ -1,0 +1,9 @@
+{
+  "name": "entre-fogones",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Servidor seguro para conectar Entre Fogones con OpenAI en Vercel",
+  "dependencies": {
+    "openai": "^5.0.0"
+  }
+}
