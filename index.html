@@ -185,7 +185,18 @@ el('add-ingredient').onclick=addIngredient;el('custom-ingredient').addEventListe
  ];
  function applyRecipePhotos(){
   document.querySelectorAll('#recipe-list .recipe-card').forEach((card,i)=>{
-   const visual=card.querySelector('.recipe-visual'); if(!visual || visual.querySelector('img')) return;
+   const visual=card.querySelector('.recipe-visual'); if(!visual) return;
+   const title=card.querySelector('h3')?.textContent?.toLowerCase()||'';
+   if(title.includes('quesadilla')){
+    const img=document.createElement('img');
+    img.src='https://images.pexels.com/photos/5848713/pexels-photo-5848713.jpeg?auto=compress&cs=tinysrgb&w=700';
+    img.alt='Quesadillas doradas con salsa';
+    img.loading='lazy';
+    img.onerror=()=>{visual.textContent='🌮'};
+    visual.replaceChildren(img);
+    return;
+   }
+   if(visual.querySelector('img')) return;
    const img=document.createElement('img'); img.src=photoSet[i%photoSet.length]; img.alt='Fotografía de una receta'; img.loading='lazy';
    img.onerror=()=>{visual.textContent='🍽️'}; visual.textContent=''; visual.append(img);
   });
