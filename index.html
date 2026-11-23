@@ -27,6 +27,24 @@
 .mode-switch{display:flex;gap:7px;padding:5px;background:light-dark(#e9eee3,#202a23);border-radius:14px;margin-bottom:14px;width:fit-content}.mode-tab{border:0;border-radius:10px;background:transparent;color:inherit;padding:10px 14px;font:inherit;font-size:12px;font-weight:800;cursor:pointer}.mode-tab.active{background:light-dark(#fffefa,#354638);box-shadow:0 2px 7px #1c321018;color:light-dark(#285943,#d8edcf)}.ai-panel{border:1px solid light-dark(#dfe7d6,#344137);background:light-dark(#fbfdf7,#202a23);border-radius:20px;padding:20px;margin-bottom:16px}.ai-heading{display:flex;align-items:start;justify-content:space-between;gap:12px}.ai-heading strong{font-size:17px;letter-spacing:-.02em}.ai-heading p{font-size:12px;line-height:1.6;color:light-dark(#778173,#b5c0b3);margin:7px 0 0}.ai-spark{display:grid;place-items:center;width:38px;height:38px;flex-shrink:0;border-radius:13px;background:var(--site-secondary);color:var(--site-on-secondary);font-size:20px}.ai-panel .field-label{margin-top:18px}.ai-panel textarea{width:100%;min-height:82px;resize:vertical;padding:12px;border:1px solid light-dark(#dfe5d8,#3b493e);border-radius:12px;background:transparent;color:inherit;font:inherit;font-size:13px;outline:none}.ai-panel textarea:focus{border-color:#789b68}.ai-actions{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:12px}.budget-check{display:flex;align-items:center;gap:8px;font-size:12px;color:light-dark(#687365,#c0c9bf)}.budget-check input{accent-color:#285943}.generate-btn{border:0;border-radius:12px;padding:12px 15px;background:var(--site-primary);color:white;font:inherit;font-size:12px;font-weight:850;cursor:pointer}.ai-note{font-size:11px;line-height:1.5;color:light-dark(#92998e,#98a597);margin:14px 0 0}.ai-results-grid{display:grid;gap:10px;margin-top:16px}.ai-result{padding:14px;border:1px solid light-dark(#e2e7dc,#3b493e);border-radius:14px;background:light-dark(#fff,#263129)}.ai-result h3{font-size:15px;margin:0 0 6px}.ai-result p{font-size:12px;line-height:1.6;color:light-dark(#707a6c,#bdc8bb);margin:0 0 8px}.ai-result .details-btn{padding:0}.modal-backdrop{position:fixed;inset:0;background:#101810a6;display:none;align-items:center;justify-content:center;padding:20px;z-index:10}.modal-backdrop.open{display:flex}.modal{width:min(540px,100%);max-height:85vh;overflow:auto;background:light-dark(#fffefa,#202a23);color:inherit;border-radius:24px;padding:26px;box-shadow:0 25px 90px #0004}.modal-head{display:flex;justify-content:space-between;gap:12px;align-items:start}.modal h2{font-family:var(--site-font-heading);font-size:30px;margin:0 0 8px}.close{border:0;background:light-dark(#edf0e8,#344137);color:inherit;border-radius:50%;width:34px;height:34px;font-size:20px;cursor:pointer;flex-shrink:0}.modal p,.modal li{font-size:13px;line-height:1.7;color:light-dark(#657067,#c0c9bf)}.modal h3{font-size:13px;margin:20px 0 8px}.modal ul,.modal ol{padding-left:20px}.modal .find-btn{margin-top:8px}
 @media(max-width:850px){.hero{grid-template-columns:1fr;padding-top:20px}.hero-art{min-height:210px}.hero h1{font-size:calc(47px * var(--site-heading-scale))}.main{grid-template-columns:1fr}.panel{padding:22px}.recipe-list{grid-template-columns:1fr}}
 @media(max-width:480px){.topbar{padding:16px 18px}.top-note{display:none}.hero{padding:20px 18px}.hero h1{font-size:calc(41px * var(--site-heading-scale))}.hero p{font-size:14px}.hero-art{min-height:180px}.food-emoji{font-size:90px}.main{padding:0 14px 35px}.panel{padding:18px}.recipe-card{grid-template-columns:90px 1fr;gap:12px;padding:11px}.recipe-visual{min-height:120px;font-size:43px}.recipe-info h3{font-size:19px}.recipe-info p{font-size:11px}.results-head h2{font-size:27px}}
+
+/* Nuevas herramientas: compra y calendario */
+.tools-nav{max-width:1180px;margin:0 auto;padding:0 28px;display:flex;gap:9px;flex-wrap:wrap}
+.tools-nav button{border:1px solid #dce4d4;background:#fffefa;color:#285943;border-radius:999px;padding:10px 16px;font:inherit;font-size:12px;font-weight:800;cursor:pointer}
+.tools-nav button.active{background:#285943;color:#fff}
+.tools-area{max-width:1180px;margin:0 auto;padding:24px 28px 60px;display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.tool-panel{background:light-dark(#fffefa,#202a23);border:1px solid light-dark(#e8e5da,#344137);border-radius:22px;padding:22px}
+.tool-panel h2{margin:0 0 8px;font-size:25px;letter-spacing:-.03em}.tool-panel p{color:#788077;font-size:13px;line-height:1.55}
+.shopping-form,.planner-form{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.shopping-form input,.planner-form select,.planner-form input{min-width:0;flex:1;border:1px solid #dce4d4;border-radius:11px;padding:11px;background:transparent;color:inherit;font:inherit}
+.tool-action{border:0;border-radius:11px;padding:11px 15px;background:#285943;color:white;font-weight:800;cursor:pointer}
+.shopping-list{list-style:none;padding:0;margin:12px 0;display:grid;gap:8px}
+.shopping-list li{display:flex;align-items:center;gap:9px;padding:10px 12px;border:1px solid #e8e5da;border-radius:12px;font-size:13px}
+.shopping-list li.done span{text-decoration:line-through;opacity:.5}.shopping-list li span{flex:1}
+.shopping-list button{border:0;background:transparent;color:#8b5548;cursor:pointer;font-size:17px}
+.plan-list{display:grid;gap:9px;margin-top:14px}.plan-item{border:1px solid #e8e5da;border-radius:12px;padding:11px;font-size:13px}.plan-item b{display:block;margin-bottom:4px;color:#285943}
+.recipe-visual{overflow:hidden}.recipe-visual img{width:100%;height:100%;min-height:140px;object-fit:cover;display:block;border-radius:15px}
+@media(max-width:760px){.tools-area{grid-template-columns:1fr;padding:18px 14px 40px}.tools-nav{padding:0 14px}.tools-nav button{flex:1}}
 </style>
 </head>
  
@@ -94,6 +112,29 @@
 <body><div id="app">
 <header class="topbar"><div class="brand"><div class="brand-icon">✳</div><span>entre <em>fogones</em></span></div><div class="top-note">100% gratis · Menos pensar. Más disfrutar. 🍋</div></header>
 <section class="hero"><div><div class="eyebrow">Tu cocina, tus reglas</div><h1>¿Qué hay en tu nevera? <span>Vamos a cocinar.</span></h1><p>Cuéntanos qué tienes por casa, cuánto tiempo te queda y cómo quieres cocinar. Nosotros ponemos las ideas; tú pones el hambre. Siempre gratis, sin suscripciones.</p><div class="hero-pills"><span>✦ Recetas fáciles</span><span>€ Económicas</span><span>↗ A tu manera</span><span>✓ 100% gratis</span></div></div><div class="hero-art"><div class="floating float-one"><b>✦ Fácil y rico</b>Sin complicaciones</div><div class="food-emoji">🥗</div><div class="floating float-two"><b>⏱ A tu ritmo</b>Desde 10 minutos</div></div></section>
+
+<nav class="tools-nav" aria-label="Herramientas de cocina">
+<button type="button" class="active" data-tool="recipes">🍽️ Recetas</button>
+<button type="button" data-tool="shopping">🛒 Lista de la compra</button>
+<button type="button" data-tool="calendar">📅 Calendario</button>
+</nav>
+<section class="tools-area" id="kitchen-tools">
+<div class="tool-panel" id="shopping-panel">
+<h2>🛒 Mi lista de la compra</h2><p>Añade lo que te falta y marca cada producto cuando lo hayas comprado.</p>
+<form class="shopping-form" id="shopping-form"><input id="shopping-input" maxlength="60" placeholder="Ej. leche, tomates, arroz…" required><button class="tool-action" type="submit">Añadir</button></form>
+<ul class="shopping-list" id="shopping-list"></ul><button class="tool-action" id="clear-shopping" type="button">Vaciar lista</button>
+</div>
+<div class="tool-panel" id="calendar-panel">
+<h2>📅 Mi calendario de comidas</h2><p>Planifica qué receta vas a preparar y en qué momento.</p>
+<form class="planner-form" id="planner-form">
+<input type="date" id="plan-date" required>
+<select id="plan-meal"><option>Desayuno</option><option selected>Comida</option><option>Cena</option></select>
+<select id="plan-recipe" required></select>
+<button class="tool-action" type="submit">Añadir al calendario</button>
+</form>
+<div class="plan-list" id="plan-list"></div>
+</div>
+</section>
 <main class="main"><aside class="panel"><h2>Tu despensa</h2><p class="muted">Marca lo que tienes. Puedes añadir ingredientes que no aparezcan.</p><div class="field-label">INGREDIENTES <span id="selected-count">0 seleccionados</span></div><div id="ingredient-grid" class="ingredient-grid"></div><div class="add-row"><input id="custom-ingredient" placeholder="Añadir ingrediente…" maxlength="30"><button id="add-ingredient" class="small-btn" aria-label="Añadir ingrediente">+</button></div>
 <div class="field-label">¿CUÁNTO TIEMPO TIENES?</div><div class="time-options" id="time-options"><button class="time-btn" data-time="10">10 min</button><button class="time-btn active" data-time="20">20 min</button><button class="time-btn" data-time="30">30 min</button><button class="time-btn" data-time="60">+1 h</button></div>
 <div class="field-label">¿CÓMO VAS A COCINAR?</div><div class="method-options" id="method-options"><button class="method-btn active" data-method="sartén"><span class="emoji">🍳</span>Sartén</button><button class="method-btn" data-method="freidora de aire"><span class="emoji">🍟</span>Freidora aire</button><button class="method-btn" data-method="microondas"><span class="emoji">♨️</span>Microondas</button></div>
@@ -130,4 +171,41 @@ el('catalog-tab').onclick=()=>{el('catalog-tab').classList.add('active');el('ai-
 el('generate-ideas').onclick=()=>{const chosen=[...selected];const prompt=el('ai-prompt').value.trim().toLowerCase();const cheap=el('budget-mode').checked;const pool=recipes.filter(r=>r.method.includes(selectedMethod)&&r.time<=selectedTime&&r.ingredients.some(i=>selected.has(i))).sort((a,b)=>(cheap?(a.cost||2)-(b.cost||2):0)-(cheap?0:0)||b.ingredients.filter(x=>selected.has(x)).length-a.ingredients.filter(x=>selected.has(x)).length||a.time-b.time);const out=el('ai-results');out.innerHTML='';const heading=document.createElement('p');heading.className='ai-note';heading.textContent=chosen.length?`Usando lo que has marcado: ${chosen.join(', ')}.`:'No has marcado ingredientes; aquí tienes ideas económicas generales. Añade ingredientes para afinar.';out.appendChild(heading);const picks=pool.length?pool.slice(0,3):recipes.filter(r=>r.method.includes(selectedMethod)&&r.time<=selectedTime).sort((a,b)=>(a.cost||2)-(b.cost||2)).slice(0,3);if(!picks.length){out.insertAdjacentHTML('beforeend','<div class="empty"><b>Necesitamos un poco más de margen</b>Prueba con más tiempo o cambia el método de cocción.</div>');return}const grid=document.createElement('div');grid.className='ai-results-grid';picks.forEach((r,index)=>{const card=document.createElement('div');card.className='ai-result';const h=document.createElement('h3');h.textContent=['Idea 1 · '+r.name,'Idea 2 · '+r.name,'Idea 3 · '+r.name][index];const p=document.createElement('p');const owned=r.ingredients.filter(x=>selected.has(x));p.textContent=`${r.time} min · ${r.ingredients.join(', ')}. ${prompt?`Preferencia indicada: ${el('ai-prompt').value.trim()}. `:''}${cheap?'Opción priorizada por coste bajo. ':' '}Pasos: ${r.steps.join(' ')}`;const b=document.createElement('button');b.className='details-btn';b.textContent='Ver receta completa →';b.onclick=()=>openRecipe(r);card.append(h,p,b);grid.appendChild(card)});out.appendChild(grid)};
 function addIngredient(){const input=el('custom-ingredient');const val=input.value.trim();if(!val)return;const found=ingredients.find(x=>x.toLowerCase()===val.toLowerCase());const name=found||val.charAt(0).toLocaleUpperCase('es-ES')+val.slice(1);if(!found)ingredients.push(name);selected.add(name);input.value='';renderIngredients()}
 el('add-ingredient').onclick=addIngredient;el('custom-ingredient').addEventListener('keydown',e=>{if(e.key==='Enter')addIngredient()});function closeModal(){el('modal-backdrop').classList.remove('open')}el('close-modal').onclick=closeModal;el('modal-done').onclick=closeModal;el('modal-backdrop').addEventListener('click',e=>{if(e.target===el('modal-backdrop'))closeModal()});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});renderIngredients();renderRecipes();
-</script></body></html>
+</script>
+<script>
+(function(){
+ const photoSet=[
+  'https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=700&q=85',
+  'https://images.unsplash.com/photo- omelette?auto=format&fit=crop&w=700&q=85',
+  'https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=700&q=85',
+  'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=700&q=85',
+  'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=700&q=85',
+  'https://images.unsplash.com/photo-1515543904379-3d757gn?auto=format&fit=crop&w=700&q=85',
+  'https://images.unsplash.com/photo-150 mushrooms?auto=format&fit=crop&w=700&q=85'
+ ];
+ const recipesData = window.__efRecipes || [];
+ const read=(k,f)=>{try{return JSON.parse(localStorage.getItem(k))||f}catch{return f}};
+ let shopping=read('ef-shopping',[]), plans=read('ef-plans',[]);
+ const $=id=>document.getElementById(id);
+ function save(){localStorage.setItem('ef-shopping',JSON.stringify(shopping));localStorage.setItem('ef-plans',JSON.stringify(plans))}
+ function renderShopping(){
+  $('shopping-list').replaceChildren();
+  shopping.forEach((item,i)=>{const li=document.createElement('li');li.className=item.done?'done':'';const check=document.createElement('input');check.type='checkbox';check.checked=item.done;check.onchange=()=>{shopping[i].done=check.checked;save();renderShopping()};const label=document.createElement('span');label.textContent=item.name;const del=document.createElement('button');del.type='button';del.textContent='×';del.setAttribute('aria-label','Eliminar '+item.name);del.onclick=()=>{shopping.splice(i,1);save();renderShopping()};li.append(check,label,del);$('shopping-list').append(li)})
+ }
+ $('shopping-form').addEventListener('submit',e=>{e.preventDefault();const v=$('shopping-input').value.trim();if(!v)return;if(!shopping.some(x=>x.name.toLowerCase()===v.toLowerCase()))shopping.push({name:v,done:false});$('shopping-input').value='';save();renderShopping()});
+ $('clear-shopping').onclick=()=>{if(confirm('¿Quieres vaciar toda la lista?')){shopping=[];save();renderShopping()}};
+ function renderPlans(){
+  $('plan-list').replaceChildren();
+  plans.sort((a,b)=>(a.date+a.meal).localeCompare(b.date+b.meal)).forEach((p,i)=>{const d=document.createElement('div');d.className='plan-item';const b=document.createElement('b');b.textContent=new Date(p.date+'T12:00:00').toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long'})+' · '+p.meal;const span=document.createElement('span');span.textContent=p.recipe;const del=document.createElement('button');del.type='button';del.className='details-btn';del.textContent='Quitar';del.onclick=()=>{plans.splice(i,1);save();renderPlans()};d.append(b,span,del);$('plan-list').append(d)})
+ }
+ const recipeNames=[...document.querySelectorAll('.recipe-info h3')].map(x=>x.textContent);
+ $('plan-recipe').innerHTML='';
+ const available=[...new Set(recipeNames)];
+ available.forEach(n=>{const o=document.createElement('option');o.value=n;o.textContent=n;$('plan-recipe').append(o)});
+ $('plan-date').value=new Date().toISOString().slice(0,10);
+ $('planner-form').addEventListener('submit',e=>{e.preventDefault();plans.push({date:$('plan-date').value,meal:$('plan-meal').value,recipe:$('plan-recipe').value});save();renderPlans()});
+ document.querySelectorAll('.tools-nav button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tools-nav button').forEach(x=>x.classList.toggle('active',x===b));const target=b.dataset.tool;if(target==='shopping')$('shopping-panel').scrollIntoView({behavior:'smooth',block:'center'});else if(target==='calendar')$('calendar-panel').scrollIntoView({behavior:'smooth',block:'center'});else document.querySelector('.main').scrollIntoView({behavior:'smooth'})}));
+ renderShopping();renderPlans();
+})();
+</script>
+</body></html>
