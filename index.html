@@ -42,7 +42,7 @@
 .shopping-list li{display:flex;align-items:center;gap:9px;padding:10px 12px;border:1px solid #e8e5da;border-radius:12px;font-size:13px}
 .shopping-list li.done span{text-decoration:line-through;opacity:.5}.shopping-list li span{flex:1}
 .shopping-list button{border:0;background:transparent;color:#8b5548;cursor:pointer;font-size:17px}
-.plan-list{display:grid;gap:9px;margin-top:14px}.plan-item{border:1px solid #e8e5da;border-radius:12px;padding:11px;font-size:13px}.plan-item b{display:block;margin-bottom:4px;color:#285943}
+.plan-list{display:grid;gap:9px;margin-top:14px}.plan-item{border:1px solid #e8e5da;border-radius:12px;padding:11px;font-size:13px}.plan-item b{display:block;margin-bottom:4px;color:#285943}.plan-item.eaten{background:#f0f6eb;border-color:#b8d2ad}.status-btn{color:#285943!important}.meal-summary{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.meal-summary span{background:#edf3e8;border-radius:10px;padding:8px 10px;font-size:11px;color:#385b3d}.plan-item .details-btn{margin-right:10px}
 .recipe-visual{overflow:hidden}.recipe-visual img{width:100%;height:100%;min-height:140px;object-fit:cover;display:block;border-radius:15px}
 @media(max-width:760px){.tools-area{grid-template-columns:1fr;padding:18px 14px 40px}.tools-nav{padding:0 14px}.tools-nav button{flex:1}}
 </style>
@@ -125,7 +125,7 @@
 <ul class="shopping-list" id="shopping-list"></ul><button class="tool-action" id="clear-shopping" type="button">Vaciar lista</button>
 </div>
 <div class="tool-panel" id="calendar-panel">
-<h2>📅 Mi calendario de comidas</h2><p>Planifica qué receta vas a preparar y en qué momento.</p>
+<h2>📅 Mi calendario y registro</h2><p>Planifica tus comidas y marca lo que realmente has comido para llevar un control diario.</p><div class="meal-summary" id="meal-summary" aria-live="polite"></div>
 <form class="planner-form" id="planner-form">
 <input type="date" id="plan-date" required>
 <select id="plan-meal"><option>Desayuno</option><option selected>Comida</option><option>Cena</option></select>
@@ -184,21 +184,27 @@ el('add-ingredient').onclick=addIngredient;el('custom-ingredient').addEventListe
   'https://images.unsplash.com/photo-1505576399274-565b52d4ac71?auto=format&fit=crop&w=700&q=85'
  ];
  function applyRecipePhotos(){
-  document.querySelectorAll('#recipe-list .recipe-card').forEach((card,i)=>{
+  const photoByRecipe=[
+   {match:'pasta cremosa',url:'https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=700&q=85',alt:'Plato de pasta'},
+   {match:'tortilla jugosa',url:'https://loremflickr.com/700/500/spanish,omelette,food',alt:'Tortilla de huevo'},
+   {match:'patatas doradas',url:'https://loremflickr.com/700/500/roasted,potatoes,food',alt:'Patatas doradas'},
+   {match:'arroz salteado',url:'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=700&q=85',alt:'Arroz salteado'},
+   {match:'quesadillas',url:'https://images.pexels.com/photos/5848713/pexels-photo-5848713.jpeg?auto=compress&cs=tinysrgb&w=700',alt:'Quesadillas doradas rellenas'},
+   {match:'garbanzos crujientes',url:'https://loremflickr.com/700/500/roasted,chickpeas,food',alt:'Garbanzos crujientes'},
+   {match:'champiñones salteados',url:'https://loremflickr.com/700/500/sauteed,mushrooms,food',alt:'Champiñones salteados con huevo'},
+   {match:'bowl templado',url:'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=700&q=85',alt:'Bowl de verduras y garbanzos'},
+   {match:'patata rellena',url:'https://loremflickr.com/700/500/stuffed,baked,potato,food',alt:'Patata rellena'},
+   {match:'tostadas',url:'https://loremflickr.com/700/500/egg,tomato,toast,food',alt:'Tostadas con huevo y tomate'},
+   {match:'calabacín',url:'https://loremflickr.com/700/500/zucchini,cheese,food',alt:'Calabacín con queso'},
+   {match:'garbanzos salteados',url:'https://loremflickr.com/700/500/chickpea,tomato,stew,food',alt:'Garbanzos salteados con tomate'}
+  ];
+  document.querySelectorAll('#recipe-list .recipe-card').forEach(card=>{
    const visual=card.querySelector('.recipe-visual'); if(!visual) return;
    const title=card.querySelector('h3')?.textContent?.toLowerCase()||'';
-   if(title.includes('quesadilla')){
-    const img=document.createElement('img');
-    img.src='https://images.pexels.com/photos/5848713/pexels-photo-5848713.jpeg?auto=compress&cs=tinysrgb&w=700';
-    img.alt='Quesadillas doradas con salsa';
-    img.loading='lazy';
-    img.onerror=()=>{visual.textContent='🌮'};
-    visual.replaceChildren(img);
-    return;
-   }
-   if(visual.querySelector('img')) return;
-   const img=document.createElement('img'); img.src=photoSet[i%photoSet.length]; img.alt='Fotografía de una receta'; img.loading='lazy';
-   img.onerror=()=>{visual.textContent='🍽️'}; visual.textContent=''; visual.append(img);
+   const match=photoByRecipe.find(x=>title.includes(x.match));
+   if(!match) return;
+   const img=document.createElement('img');img.src=match.url;img.alt=match.alt;img.loading='lazy';
+   img.onerror=()=>{visual.textContent='🍽️'};visual.replaceChildren(img);
   });
  }
  const recipeObserver=new MutationObserver(applyRecipePhotos);
@@ -216,14 +222,26 @@ el('add-ingredient').onclick=addIngredient;el('custom-ingredient').addEventListe
  $('clear-shopping').onclick=()=>{if(confirm('¿Quieres vaciar toda la lista?')){shopping=[];save();renderShopping()}};
  function renderPlans(){
   $('plan-list').replaceChildren();
-  plans.sort((a,b)=>(a.date+a.meal).localeCompare(b.date+b.meal)).forEach((p,i)=>{const d=document.createElement('div');d.className='plan-item';const b=document.createElement('b');b.textContent=new Date(p.date+'T12:00:00').toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long'})+' · '+p.meal;const span=document.createElement('span');span.textContent=p.recipe;const del=document.createElement('button');del.type='button';del.className='details-btn';del.textContent='Quitar';del.onclick=()=>{plans.splice(i,1);save();renderPlans()};d.append(b,span,del);$('plan-list').append(d)})
+  const eaten=plans.filter(p=>p.eaten).length;
+  const pending=plans.length-eaten;
+  $('meal-summary').innerHTML='<span>🍽️ <b>'+plans.length+'</b> comidas registradas</span><span>✓ <b>'+eaten+'</b> comidas realizadas</span><span>◷ <b>'+pending+'</b> pendientes</span>';
+  plans.sort((a,b)=>(a.date+a.meal).localeCompare(b.date+b.meal)).forEach((p,i)=>{
+   const d=document.createElement('div');d.className='plan-item'+(p.eaten?' eaten':'');
+   const b=document.createElement('b');b.textContent=new Date(p.date+'T12:00:00').toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long'})+' · '+p.meal;
+   const span=document.createElement('span');span.textContent=p.recipe;
+   const status=document.createElement('button');status.type='button';status.className='details-btn status-btn';status.textContent=p.eaten?'✓ Ya comida · Deshacer':'Marcar como comida';
+   status.setAttribute('aria-pressed',String(!!p.eaten));
+   status.onclick=()=>{p.eaten=!p.eaten;save();renderPlans()};
+   const del=document.createElement('button');del.type='button';del.className='details-btn';del.textContent='Quitar';del.onclick=()=>{plans.splice(plans.indexOf(p),1);save();renderPlans()};
+   d.append(b,span,status,del);$('plan-list').append(d);
+  })
  }
  const recipeNames=recipes.map(x=>x.name);
  $('plan-recipe').innerHTML='';
  const available=[...new Set(recipeNames)];
  available.forEach(n=>{const o=document.createElement('option');o.value=n;o.textContent=n;$('plan-recipe').append(o)});
  $('plan-date').value=new Date().toISOString().slice(0,10);
- $('planner-form').addEventListener('submit',e=>{e.preventDefault();plans.push({date:$('plan-date').value,meal:$('plan-meal').value,recipe:$('plan-recipe').value});save();renderPlans()});
+ $('planner-form').addEventListener('submit',e=>{e.preventDefault();plans.push({date:$('plan-date').value,meal:$('plan-meal').value,recipe:$('plan-recipe').value,eaten:false});save();renderPlans()});
  document.querySelectorAll('.tools-nav button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tools-nav button').forEach(x=>x.classList.toggle('active',x===b));const target=b.dataset.tool;if(target==='shopping')$('shopping-panel').scrollIntoView({behavior:'smooth',block:'center'});else if(target==='calendar')$('calendar-panel').scrollIntoView({behavior:'smooth',block:'center'});else document.querySelector('.main').scrollIntoView({behavior:'smooth'})}));
  renderShopping();renderPlans();
 })();
