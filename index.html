@@ -176,14 +176,23 @@ el('add-ingredient').onclick=addIngredient;el('custom-ingredient').addEventListe
 (function(){
  const photoSet=[
   'https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=700&q=85',
-  'https://images.unsplash.com/photo- omelette?auto=format&fit=crop&w=700&q=85',
-  'https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=700&q=85',
+  'https://images.unsplash.com/photo-1546549032-9571cd6b27df?auto=format&fit=crop&w=700&q=85',
+  'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=700&q=85',
   'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=700&q=85',
   'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=700&q=85',
-  'https://images.unsplash.com/photo-1515543904379-3d757gn?auto=format&fit=crop&w=700&q=85',
-  'https://images.unsplash.com/photo-150 mushrooms?auto=format&fit=crop&w=700&q=85'
+  'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=700&q=85',
+  'https://images.unsplash.com/photo-1505576399274-565b52d4ac71?auto=format&fit=crop&w=700&q=85'
  ];
- const recipesData = window.__efRecipes || [];
+ function applyRecipePhotos(){
+  document.querySelectorAll('#recipe-list .recipe-card').forEach((card,i)=>{
+   const visual=card.querySelector('.recipe-visual'); if(!visual || visual.querySelector('img')) return;
+   const img=document.createElement('img'); img.src=photoSet[i%photoSet.length]; img.alt='Fotografía de una receta'; img.loading='lazy';
+   img.onerror=()=>{visual.textContent='🍽️'}; visual.textContent=''; visual.append(img);
+  });
+ }
+ const recipeObserver=new MutationObserver(applyRecipePhotos);
+ const recipeContainer=document.getElementById('recipe-list');
+ if(recipeContainer){recipeObserver.observe(recipeContainer,{childList:true});applyRecipePhotos();}
  const read=(k,f)=>{try{return JSON.parse(localStorage.getItem(k))||f}catch{return f}};
  let shopping=read('ef-shopping',[]), plans=read('ef-plans',[]);
  const $=id=>document.getElementById(id);
@@ -198,7 +207,7 @@ el('add-ingredient').onclick=addIngredient;el('custom-ingredient').addEventListe
   $('plan-list').replaceChildren();
   plans.sort((a,b)=>(a.date+a.meal).localeCompare(b.date+b.meal)).forEach((p,i)=>{const d=document.createElement('div');d.className='plan-item';const b=document.createElement('b');b.textContent=new Date(p.date+'T12:00:00').toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long'})+' · '+p.meal;const span=document.createElement('span');span.textContent=p.recipe;const del=document.createElement('button');del.type='button';del.className='details-btn';del.textContent='Quitar';del.onclick=()=>{plans.splice(i,1);save();renderPlans()};d.append(b,span,del);$('plan-list').append(d)})
  }
- const recipeNames=[...document.querySelectorAll('.recipe-info h3')].map(x=>x.textContent);
+ const recipeNames=recipes.map(x=>x.name);
  $('plan-recipe').innerHTML='';
  const available=[...new Set(recipeNames)];
  available.forEach(n=>{const o=document.createElement('option');o.value=n;o.textContent=n;$('plan-recipe').append(o)});
